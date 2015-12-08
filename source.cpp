@@ -321,9 +321,6 @@ void search()
 }
 void edit()
 {
-    infile.open("transfer.dat", ios::in | ios::binary);
-    fstream temp;
-    temp.open("new.dat", ios::out | ios::binary);
     cout << "WELCOME TO DATA EDIT WINDOW \n";
     cout << "1. Enter new data \n";
     cout << "2. Delete data \n";
@@ -332,13 +329,24 @@ void edit()
     switch(choice)
     {
 	case 1: do{
+		    infile.open("transfer.dat", ios::in | ios::binary);
+                    fstream temp;
+                    temp.open("new.dat", ios::out | ios::binary);
 		    p1.getData();
 		    infile.write((char*)&p1, sizeof(p1));
 		    cout << "do u want to enter another record - \n";
 		    cin >> ans;
 		}while(ans != "No" || ans != "no" || ans != "nO" || ans != "NO" || ans != "n" || ans != "N");
+		infile.close();
+		remove("transfer.dat");
+		rename("new.dat","transfer.dat")
+		temp.close();
 		break;
-	case 2:int rec = 1;
+	case 2:
+	       infile.open("transfer.dat", ios::in | ios::binary);
+               fstream temp;
+               temp.open("new.dat", ios::out | ios::binary);
+	       int rec = 1;
 	       int delRec;
 	       cout << "Enter record no to be deleted /n";
 	       cin>>delRec;
@@ -354,7 +362,11 @@ void edit()
 	       remove("transfer.dat");
 	       rename("temp.dat","transfer.dat");
 	       break;
-	case 3:int rec=0;
+	case 3:
+	       infile.open("transfer.dat", ios::in | ios::binary);
+               fstream temp;
+               temp.open("new.dat", ios::out | ios::binary);
+	       int rec=0;
 	       int edtRec;
 	       cout<<"Enter record no to edit /n";
 	       cin>>edtRec;
