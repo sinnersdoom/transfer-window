@@ -197,7 +197,6 @@ void create()
 void search()
 {
     int i, n, choice1;
-    infile.open("transfers.dat", ios::in | ios::binary);
     cout << "Welcome to player search window \n";
     cout << "1. Browse full player list \n";
     cout << "2. Search player details \n";
@@ -205,7 +204,8 @@ void search()
     cin >> choice;
     switch(choice)
     {
-	case 1: while(infile.read((char*)&p1, sizeof(p1)))
+	case 1: infile.open("transfers.dat", ios::in | ios::binary);
+		while(infile.read((char*)&p1, sizeof(p1)))
 		{
 		    do{
 			for(i = 0 ; i < 2 ; i++)
@@ -219,6 +219,7 @@ void search()
 		    if(ans == "No" || ans == "no" || ans == "nO" || ans == "NO" || ans == "n" || ans == "N")
 			break;
 		};
+		infile.close();
 		break;
 
 	case 2: cout << "Search details according to - \n";
@@ -232,7 +233,8 @@ void search()
 		cin  >> choice1;
 		switch(choice1)
 		{
-		    case 1: char pfName[20];
+		    case 1: infile.open("transfers.dat", ios::in | ios::binary); 
+			    char pfName[20];
 			    cout<< "Enter first name \n";
 			    gets(pfName);
 			    while(infile.read((char*)&p1, sizeof(p1)))
@@ -240,8 +242,10 @@ void search()
 				if(strcmpi(pfName, p1.retfName())==0)
 				    p1.showData();
 			    }
+			    infile.close();
 			    break;
-		    case 2: char plName[20];
+		    case 2: infile.open("transfers.dat", ios::in | ios::binary); 
+		    	    char plName[20];
 			    cout << "Enter last name \n";
 			    gets(plName);
 			    while(infile.read((char*)&p1, sizeof(p1)))
@@ -249,8 +253,10 @@ void search()
 				if(strcmpi(plName, p1.retlName())==0)
 				    p1.showData();
 			    }
+			    infile.cloe();
 			    break;
-		    case 3: char pLeague[40][30];
+		    case 3: infile.open("transfers.dat", ios::in | ios::binary);
+		    	    char pLeague[40][30];
 			    int lNo, i;
 			    cout << "Enter the no of league you want to search";
 			    cin >> lNo;
@@ -271,7 +277,10 @@ void search()
 					p1.showData();
 				 }
 			    }
-		    case 4: char pTeam[60];
+			    infile.close();
+			    break;
+		    case 4: infile.open("transfers.dat", ios::in | ios::binary);
+		    	    char pTeam[60];
 			    cout << "Enter Team name \n";
 			    gets(pTeam);
 			    while(infile.read((char*)&p1, sizeof(p1)))
@@ -279,8 +288,10 @@ void search()
 				if(strcmpi(pTeam, p1.retTeam())==0)
 				    p1.showData();
 			    }
+			    infile.close();
 			    break;
-		    case 5: int lwSal, uwSal;
+		    case 5: infile.open("transfers.dat", ios::in | ios::binary); 
+		    	    int lwSal, uwSal;
 			    cout << "Enter lower limit of weekly salary \n";
 			    cin >> lwSal;
 			    cout << "Enter upper limit of weekly salary \n";
@@ -290,8 +301,10 @@ void search()
 				if(lwSal >= p1.retwSal() &&  uwSal <= p1.retwSal())
 				    p1.showData();
 			    }
+			    infile.close();
 			    break;
-		    case 6: int pRate1, pRate2;
+		    case 6: infile.open("transfers.dat", ios::in | ios::binary); 
+		    	    int pRate1, pRate2;
 			    cout << "Enter lower limit of player rating \n";
 			    cin >> pRate1;
 			    cout << "Enter upper limit of weekly salary \n";
@@ -301,8 +314,10 @@ void search()
 				if(pRate1 >= p1.retpRate() && pRate2 <= p1.retpRate())
 				    p1.showData();
 			    }
+			    infile.close();
 			    break;
-		    case 7: int ubPrice, lbPrice;
+		    case 7: infile.open("transfer.dat", ios::)
+		    	    int ubPrice, lbPrice;
 			    cout << "Enter lower limit of base salary \n";
 			    cin >> lbPrice;
 			    cout << "Enter upper limit of base salary \n";
@@ -338,12 +353,11 @@ void edit()
 		    cin >> ans;
 		}while(ans != "No" || ans != "no" || ans != "nO" || ans != "NO" || ans != "n" || ans != "N");
 		infile.close();
+		temp.close();
 		remove("transfer.dat");
 		rename("new.dat","transfer.dat")
-		temp.close();
 		break;
-	case 2:
-	       infile.open("transfer.dat", ios::in | ios::binary);
+	case 2:infile.open("transfer.dat", ios::in | ios::binary);
                fstream temp;
                temp.open("new.dat", ios::out | ios::binary);
 	       int rec = 1;
@@ -362,8 +376,7 @@ void edit()
 	       remove("transfer.dat");
 	       rename("temp.dat","transfer.dat");
 	       break;
-	case 3:
-	       infile.open("transfer.dat", ios::in | ios::binary);
+	case 3:infile.open("transfer.dat", ios::in | ios::binary);
                fstream temp;
                temp.open("new.dat", ios::out | ios::binary);
 	       int rec=0;
@@ -453,7 +466,9 @@ void main()
 	    case 3: cout << "Welcome to player database edut mode \n":
 		    edit();
 		    break;
-	    default: cout << "Sorry pal, wrong choice :( \n";
+	    default:cout << "Sorry pal, wrong choice :( \n";
+	    	    goto start;
+	    	    break;
 	}
 	cout << "Sir do u want to continue";
 	cin >> ans;
