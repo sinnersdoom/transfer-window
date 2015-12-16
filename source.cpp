@@ -18,7 +18,7 @@
 					 //---------------\\
 					//                 \\
 				       //                   \\
-				      //                     \\                              */
+				      //                     \\                    */
 class player                         //                       \\
 {                                   //                         \\
     private:                       //                           \\
@@ -41,7 +41,7 @@ class player                         //                       \\
     public:
 	   int salPerage(int age);
 	   int salPerrat(int rating);
-	   void getData()
+		   void getData()
 	   {
 	       int age;
 	       cout << "Enter player's first name- \n";
@@ -177,15 +177,16 @@ int player:: salPerrat(int rating) //salary based on rating
 // /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\
 
 int  choice;
-char ans[3];
-fstream infile;
+char ans;
+fstream infile, temp;
 
 void create()
 {
-    char ans = 'y';
-    infile.open("transfer.dat", ios::out);
+    ans = 'y';
+    infile.open("transfer.dat", ios::out | ios::binary);
     while(ans == 'y' || ans == 'Y')
     {
+	p1.getdata();
 	infile.write((char*)&p1, sizeof(p1));
 	cout << "record entered \n";
 	cout << "do u want to enter another info y/n- ";
@@ -204,7 +205,7 @@ void search()
     cin >> choice;
     switch(choice)
     {
-	case 1: infile.open("transfers.dat", ios::in | ios::binary);
+	case 1: infile.open("transfer.dat", ios::in | ios::binary);
 		while(infile.read((char*)&p1, sizeof(p1)))
 		{
 		    do{
@@ -215,10 +216,10 @@ void search()
 			cout << "do u want to go next page-";
 			cin >> ans;
 			clrscr();
-		    }while(ans != "No" || ans != "no" || ans != "nO" || ans != "NO" || ans != "n" || ans != "N");
-		    if(ans == "No" || ans == "no" || ans == "nO" || ans == "NO" || ans == "n" || ans == "N")
+		    }while(ans == 'Y' || ans == 'y');
+		    if(ans != 'Y' || ans != 'y')
 			break;
-		};
+		}
 		infile.close();
 		break;
 
@@ -233,7 +234,7 @@ void search()
 		cin  >> choice1;
 		switch(choice1)
 		{
-		    case 1: infile.open("transfers.dat", ios::in | ios::binary); 
+		    case 1: infile.open("transfer.dat", ios::in | ios::binary);
 			    char pfName[20];
 			    cout<< "Enter first name \n";
 			    gets(pfName);
@@ -244,8 +245,8 @@ void search()
 			    }
 			    infile.close();
 			    break;
-		    case 2: infile.open("transfers.dat", ios::in | ios::binary); 
-		    	    char plName[20];
+		    case 2: infile.open("transfer.dat", ios::in | ios::binary);
+			    char plName[20];
 			    cout << "Enter last name \n";
 			    gets(plName);
 			    while(infile.read((char*)&p1, sizeof(p1)))
@@ -253,34 +254,35 @@ void search()
 				if(strcmpi(plName, p1.retlName())==0)
 				    p1.showData();
 			    }
-			    infile.cloe();
+			    infile.close();
 			    break;
-		    case 3: infile.open("transfers.dat", ios::in | ios::binary);
-		    	    char pLeague[40][30];
+		    case 3: infile.open("transfer.dat", ios::in | ios::binary);
+			    char pLeague[40][30];
 			    int lNo, i;
 			    cout << "Enter the no of league you want to search";
 			    cin >> lNo;
-			    while(lNo = 0)
+			    while(lNo == 0)
 			    {
 				cout << "wrong input";
 				cin >> lno;
 			    }
 			    for(i=0 ; i<lNo ; i++)
 			    {
-				cin >> pLeague[40][i];
+				gets(pLeague[i]);
 			    }
 			    for(i=0 ; i<lNo ; i++)
 			    {
 				while(infile.read((char*)&p1, sizeof(p1)))
 				{
-				    if(strcmpi(plName[][i], p1.retLeague())==0)
+				    if(strcmpi(pLeague[i], p1.retLeague())==0)
 					p1.showData();
-				 }
+				}
+				infile.seekg(0);
 			    }
 			    infile.close();
 			    break;
-		    case 4: infile.open("transfers.dat", ios::in | ios::binary);
-		    	    char pTeam[60];
+		    case 4: infile.open("transfer.dat", ios::in | ios::binary);
+			    char pTeam[60];
 			    cout << "Enter Team name \n";
 			    gets(pTeam);
 			    while(infile.read((char*)&p1, sizeof(p1)))
@@ -290,8 +292,8 @@ void search()
 			    }
 			    infile.close();
 			    break;
-		    case 5: infile.open("transfers.dat", ios::in | ios::binary); 
-		    	    int lwSal, uwSal;
+		    case 5: infile.open("transfer.dat", ios::in | ios::binary);
+			    int lwSal, uwSal;
 			    cout << "Enter lower limit of weekly salary \n";
 			    cin >> lwSal;
 			    cout << "Enter upper limit of weekly salary \n";
@@ -303,8 +305,8 @@ void search()
 			    }
 			    infile.close();
 			    break;
-		    case 6: infile.open("transfers.dat", ios::in | ios::binary); 
-		    	    int pRate1, pRate2;
+		    case 6: infile.open("transfer.dat", ios::in | ios::binary);
+			    int pRate1, pRate2;
 			    cout << "Enter lower limit of player rating \n";
 			    cin >> pRate1;
 			    cout << "Enter upper limit of weekly salary \n";
@@ -316,8 +318,8 @@ void search()
 			    }
 			    infile.close();
 			    break;
-		    case 7: infile.open("transfer.dat", ios::)
-		    	    int ubPrice, lbPrice;
+		    case 7: infile.open("transfer.dat", ios::in | ios::binary);
+			    int ubPrice, lbPrice;
 			    cout << "Enter lower limit of base salary \n";
 			    cin >> lbPrice;
 			    cout << "Enter upper limit of base salary \n";
@@ -327,12 +329,12 @@ void search()
 				if(lbPrice >= p1.retbPrice() &&  ubPrice <= p1.retbPrice())
 				    p1.showData();
 			    }
+			    infile.close();
 			    break;
 		    default: cout << "BUDDY, SORRY WRONG CALL :(:(:(:( \n";
 		}
 	default: cout << "BUDDY, SORRY WRONG CALL :(:(:(:( \n";
     }
-    infile.close();
 }
 void edit()
 {
@@ -343,60 +345,57 @@ void edit()
     cin >> choice;
     switch(choice)
     {
-	case 1: do{
-		    infile.open("transfer.dat", ios::in | ios::binary);
-                    fstream temp;
-                    temp.open("new.dat", ios::out | ios::binary);
+	case 1: infile.open("transfer.dat", ios::in | ios::binary);
+		temp.open("new.dat", ios::out | ios::binary);
+		do{
 		    p1.getData();
 		    infile.write((char*)&p1, sizeof(p1));
 		    cout << "do u want to enter another record - \n";
 		    cin >> ans;
-		}while(ans != "No" || ans != "no" || ans != "nO" || ans != "NO" || ans != "n" || ans != "N");
+		}while(ans == 'Y' || ans == 'y');
 		infile.close();
 		temp.close();
 		remove("transfer.dat");
-		rename("new.dat","transfer.dat")
+		rename("new.dat","transfer.dat");
 		break;
 	case 2:infile.open("transfer.dat", ios::in | ios::binary);
-               fstream temp;
-               temp.open("new.dat", ios::out | ios::binary);
+	       temp.open("new.dat", ios::out | ios::binary);
 	       int rec = 1;
 	       int delRec;
 	       cout << "Enter record no to be deleted /n";
 	       cin>>delRec;
-	       infile.seekg(0)
+	       infile.seekg(0);
 	       while(infile.read((char*)&p1, sizeof(p1))
 	       {
 		   if (rec!=delRec)
-		   temp.write((char*)&p1,sizeof(p1))
+		       temp.write((char*)&p1,sizeof(p1));
 		   rec++;
 	       }
 	       temp.close();
 	       infile.close();
 	       remove("transfer.dat");
-	       rename("temp.dat","transfer.dat");
+	       rename("new.dat","transfer.dat");
 	       break;
 	case 3:infile.open("transfer.dat", ios::in | ios::binary);
-               fstream temp;
-               temp.open("new.dat", ios::out | ios::binary);
+	       temp.open("new.dat", ios::out | ios::binary);
 	       int rec=0;
 	       int edtRec;
 	       cout<<"Enter record no to edit /n";
 	       cin>>edtRec;
-	       while(infile.read((char*)&p1, sizeof(p1))
+	       while(infile.read((char*)&p1, sizeof(p1)))
 	       {
-		   r++;;
+		   r++;
 		   if(rec==edtRec)
 		   {
 		       cout<<"Enter new details /n";
 		       p2.getdata();
 		    }
-		    temp.write((char*)&p2, sizeof(p1))
+		    temp.write((char*)&p2, sizeof(p1));
 	       }
 	       temp.close();
 	       infile.close();
 	       remove("transfer.dat");
-	       rename("temp.dat","transfer.dat");
+	       rename("new.dat","transfer.dat");
 	       break;
 	default: cout << "BUDDY, SORRY WRONG CALL :(:(:(:( \n";
     }
@@ -405,7 +404,6 @@ void edit()
 void main()
 {
     clrscr();
-    int choice;
     cout << " &&&       &&&&&      &&&  &&&&&&&&&  &&&          &&&&&&    &&&&&&     &&&&&     &&&&&   &&&&&&&&&  \n ";
     cout << "  &&&     &&& &&&    &&&   &&&        &&&         &&&       &&&  &&&    &&& &&& &&& &&&   &&&        \n ";
     cout << "   &&&   &&&  &&&   &&&    &&&&&&     &&&        &&&       &&&    &&&   &&&  &&&&&  &&&   &&&&&&     \n ";
@@ -446,7 +444,7 @@ void main()
     }
     cout << "do you want use our service once again ?";
     cin >> ans;
-    while(ans!="no" || ans!="No")
+    while(ans == 'Y' || ans == 'y')
     {
 	cout << "1. Enter record to our database \n";
 	cout << "2. Search from talent \n";
@@ -467,8 +465,8 @@ void main()
 		    edit();
 		    break;
 	    default:cout << "Sorry pal, wrong choice :( \n";
-	    	    goto start;
-	    	    break;
+		 // goto start;
+		    break;
 	}
 	cout << "Sir do u want to continue";
 	cin >> ans;
