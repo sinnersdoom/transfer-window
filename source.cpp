@@ -68,25 +68,25 @@ class player                         //                       \\
 
 	   void showData()
 	   {
-	       cout << "Player's first name- \n";
+	       cout << "Player's first name- ";
 	       cout << fName << endl;
-	       cout << "Player's last name- \n";
+	       cout << "Player's last name- ";
 	       cout << lName << endl;
 	       cout << "Legaue in which the player is playing -";
 	       cout << league << endl;
-	       cout << "Player's team name- \n";
+	       cout << "Player's team name- ";
 	       cout << team << endl;
-	       cout << "Player's position- \n";
+	       cout << "Player's position- ";
 	       cout << pos << endl;
-	       cout << "Player's age- \n";
+	       cout << "Player's age- ";
 	       cout << age << endl;
-	       cout << "Player's weekly salary- \n";
+	       cout << "Player's weekly salary- ";
 	       cout << wSal << endl;
-	       cout << "Player's goals per season- \n";
+	       cout << "Player's goals per season- ";
 	       cout << gps << endl;
-	       cout << "Player's matches- \n";
+	       cout << "Player's matches- ";
 	       cout << match << endl;
-	       cout << "Player's rating- \n";
+	       cout << "Player's rating- ";
 	       cout << rating << endl;
 	   }
 
@@ -202,8 +202,8 @@ void search()
     cout << "1. Browse full player list \n";
     cout << "2. Search player details \n";
     cout << "Enter choice - \n";
-    cin >> choice;
-    switch(choice)
+    cin >> choice1;
+    switch(choice1)
     {
 	case 1: infile.open("transfer.dat", ios::in | ios::binary);
 		while(infile.read((char*)&p1, sizeof(p1)))
