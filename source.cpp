@@ -41,7 +41,7 @@ class player                         //                       \\
     public:
 	   int salPerage(int age);
 	   int salPerrat(int rating);
-		   void getData()
+	   void getData()
 	   {
 	       int age;
 	       cout << "Enter player's first name- \n";
@@ -189,7 +189,7 @@ void create()
 	p1.getdata();
 	infile.write((char*)&p1, sizeof(p1));
 	cout << "record entered \n";
-	cout << "do u want to enter another info y/n- ";
+	cout << "do u want to enter another info y/n - ";
 	cin >> ans;
     }
     infile.close();
@@ -342,8 +342,8 @@ void edit()
     cout << "1. Enter new data \n";
     cout << "2. Delete data \n";
     cout << "3. Edit a player record \n";
-    cin >> choice;
-    switch(choice)
+    cin >> choice1;
+    switch(choice1)
     {
 	case 1: infile.open("transfer.dat", ios::in | ios::binary);
 		temp.open("new.dat", ios::out | ios::binary);
