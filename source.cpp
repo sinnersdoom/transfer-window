@@ -68,46 +68,36 @@ class player                         //                       \\
 
 	   void showData()
 	   {
-	       cout << "Player's first name- ";
-	       cout << fName << endl;
-	       cout << "Player's last name- ";
-	       cout << lName << endl;
-	       cout << "Legaue in which the player is playing -";
-	       cout << league << endl;
-	       cout << "Player's team name- ";
-	       cout << team << endl;
-	       cout << "Player's position- ";
-	       cout << pos << endl;
-	       cout << "Player's age- ";
-	       cout << age << endl;
-	       cout << "Player's weekly salary- ";
-	       cout << wSal << endl;
-	       cout << "Player's goals per season- ";
-	       cout << gps << endl;
-	       cout << "Player's matches- ";
-	       cout << match << endl;
-	       cout << "Player's rating- ";
-	       cout << rating << endl;
+	       cout << "Player's first name- " << fName << endl;
+	       cout << "Player's last name- " << lName << endl;
+	       cout << "Legaue in which the player is playing -" << league << endl;
+	       cout << "Player's team name- " << team << endl;
+	       cout << "Player's position- " << pos << endl;
+	       cout << "Player's age- " << age << endl;
+	       cout << "Player's weekly salary- " << wSal << endl;
+	       cout << "Player's goals per season- " << gps << endl;
+	       cout << "Player's matches- " << match << endl;
+	       cout << "Player's rating- " << rating << endl;
 	   }
 
 	   char *retfName()
 	   {
-	       return(fName);
+	       return fName;
 	   }
 
 	   char *retlName()
 	   {
-	       return(lName);
+	       return lName;
 	   }
 
 	   char *retLeague()
 	   {
-	       return(pLeague);
+	       return pLeague;
 	   }
 
 	   char *retTeam()
 	   {
-	       return(team);
+	       return team;
 	   }
 
 	   int retwSal()
