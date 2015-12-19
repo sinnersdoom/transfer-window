@@ -187,7 +187,7 @@ void create()
 
 void search()
 {
-    int i, n, choice1;
+    int i, n, choice1, choice2;
     cout << "Welcome to player search window \n";
     cout << "1. Browse full player list \n";
     cout << "2. Search player details \n";
@@ -221,8 +221,8 @@ void search()
 		cout << "5. Weekly salary \n";
 		cout << "6. Rating between a certain range \n";
 		cout << "7. Range of base price \n";
-		cin  >> choice1;
-		switch(choice1)
+		cin  >> choice2;
+		switch(choice2)
 		{
 		    case 1: infile.open("transfer.dat", ios::in | ios::binary);
 			    char pfName[20];
