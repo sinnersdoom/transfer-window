@@ -1,41 +1,31 @@
+#include<iostream.h>
 #include<fstream.h>
 #include<conio.h>
 #include<ctype.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-										  /*
 
-					          |
-						 /-\
-					        //-\\
-					       //---\\
-					      //-----\\
-					     //-------\\
-					    //---------\\
-					   //-----------\\
-					  //-------------\\
-					 //---------------\\
-					//                 \\
-				       //                   \\
-				      //                     \\                    */
-class player                         //                       \\
-{                                   //                         \\
-    private:                       //                           \\
-	    int age;              //--------player's age---------\\
-	    char fName[20];      //---------first name------------\\
-	    char lName[20];     //----------last name--------------\\
-	    char team[60];     //-----------current team------------\\
-	    char league[40]   //----------player's league------------\\
-	    char pos[5];     //-------------position------------------\\
-	    float wSal;     //--------------weekly salary--------------\\
-	    int gps;       //---------------goals per season------------\\
-	    int match;    //------no of match the player has played------\\
-	    int rating;  //-----------------player rating-----------------\\
-	    int bPrice; //-------------base price of a player--------------\\
+class player
+{
+    private:
+	    int age;
+	    char fName[30];
+	    char lName[30];
+	    char team[60];
+	    char pLeague[40];
+	    char pos[5];
+	    float wSal;
+	    int gps;
+	    int match;
+	    int rating;
+	    int bPrice;
 	    void price( int gps, int wSal, int mat, int age, int rating)
 	    {
-		bPrice= ((gps/mat)*100) + wSal + salPerage(age) + salPerrat(rating);
+	       int s=salPerage(age);
+	       int sp=salPerrat(rating);
+	       bPrice= ((gps/mat)*100) + wSal + s + sp;
+	       cout<<bPrice;
 	    }
 
     public:
@@ -43,61 +33,73 @@ class player                         //                       \\
 	   int salPerrat(int rating);
 	   void getData()
 	   {
-	       int age;
 	       cout << "Enter player's first name- \n";
 	       gets(fName);
 	       cout << "Enter player's last name- \n";
 	       gets(lName);
 	       cout << "Enter the league in which the players is playing";
-	       gets(league);
+	       gets(pLeague);
 	       cout << "Enter player's team name- \n";
 	       gets(team);
-	       cout << "Enter player's position- \n";
+	       cout << "Enter player's position- ";
 	       gets(pos);
-	       cout << "Enter player's age- \n";
+	       cout << "Enter player's age- ";
 	       cin >>age;
-	       cout << "Enter player's weekly salary- \n";
+	       cout << "Enter player's weekly salary- ";
 	       cin >>wSal;
-	       cout << "Enter player's goals per season- \n";
+	       cout << "Enter player's goals per season- ";
 	       cin >>gps;
-	       cout << "Enter player's matches- \n";
+	       cout << "Enter player's matches- ";
 	       cin >>match;
-	       cout << "Enter player's rating- \n";
+	       cout << "Enter player's rating- ";
 	       cin >> rating;
 	   }
 
 	   void showData()
 	   {
-	       cout << "Player's first name- " << fName << endl;
-	       cout << "Player's last name- " << lName << endl;
-	       cout << "Legaue in which the player is playing -" << league << endl;
-	       cout << "Player's team name- " << team << endl;
-	       cout << "Player's position- " << pos << endl;
-	       cout << "Player's age- " << age << endl;
-	       cout << "Player's weekly salary- " << wSal << endl;
-	       cout << "Player's goals per season- " << gps << endl;
-	       cout << "Player's matches- " << match << endl;
-	       cout << "Player's rating- " << rating << endl;
+	       cout << "Player's first name- ";
+	       cout << fName << endl;
+	       cout << "Player's last name- ";
+	       cout << lName << endl;
+	       cout << "Legaue in which the player is playing -";
+	       cout << pLeague << endl;
+	       cout << "Player's team name- ";
+	       cout << team << endl;
+	       cout << "Player's position- ";
+	       cout << pos << endl;
+	       cout << "Player's age- ";
+	       cout << age << endl;
+	       cout << "Player's weekly salary- ";
+	       cout << wSal << endl;
+	       cout << "Player's goals per season- ";
+	       cout << gps << endl;
+	       cout << "Player's matches- ";
+	       cout << match << endl;
+	       cout << "Player's rating- ";
+	       cout << rating << endl;
+	       cout << "Player's price- ";
+	       price(gps,wSal,match,age,rating);
+	       cout << endl;
 	   }
 
 	   char *retfName()
 	   {
-	       return fName;
+	       return(fName);
 	   }
 
 	   char *retlName()
 	   {
-	       return lName;
+	       return(lName);
 	   }
 
 	   char *retLeague()
 	   {
-	       return pLeague;
+	       return(pLeague);
 	   }
 
 	   char *retTeam()
 	   {
-	       return team;
+	       return(team);
 	   }
 
 	   int retwSal()
@@ -160,8 +162,10 @@ int player:: salPerrat(int rating) //salary based on rating
        return 12000;
     else if((rating >  0)&&(rating <=40))
        return 4500;
-    else
+  /*  else
+    {
        cout << " :( sorry buddy, wrong input";
+    }*/
 }
 
 // /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\ /\/\
@@ -172,43 +176,40 @@ fstream infile, temp;
 
 void create()
 {
-    ans = 'y';
+    char ans = 'y';
     infile.open("transfer.dat", ios::out | ios::binary);
     while(ans == 'y' || ans == 'Y')
     {
-	p1.getdata();
+	p1.getData();
 	infile.write((char*)&p1, sizeof(p1));
 	cout << "record entered \n";
-	cout << "do u want to enter another info y/n - ";
+	cout << "do u want to enter another info y/n- ";
 	cin >> ans;
     }
+    clrscr();
     infile.close();
 }
 
 void search()
 {
-    int i, n, choice1, choice2;
+    int i, n, choice1;
     cout << "Welcome to player search window \n";
     cout << "1. Browse full player list \n";
     cout << "2. Search player details \n";
     cout << "Enter choice - \n";
-    cin >> choice1;
-    switch(choice1)
+    cin >> choice;
+    switch(choice)
     {
 	case 1: infile.open("transfer.dat", ios::in | ios::binary);
 		while(infile.read((char*)&p1, sizeof(p1)))
 		{
-		    do{
-			for(i = 0 ; i < 2 ; i++)
-			{
 			    p1.showData();
-			}
-			cout << "do u want to go next page-";
+			    getch();
+			cout << "do u want to continue";
 			cin >> ans;
-			clrscr();
-		    }while(ans == 'Y' || ans == 'y');
-		    if(ans != 'Y' || ans != 'y')
-			break;
+			clrscr(); //old c++ school
+		    if(ans == 'n' || ans == 'N');
+		      break;
 		}
 		infile.close();
 		break;
@@ -216,13 +217,13 @@ void search()
 	case 2: cout << "Search details according to - \n";
 		cout << "1. Player's first name \n";
 		cout << "2. Player's last name \n";
-		cout << "3. league(s)";
+		cout << "3. league(s) \n";
 		cout << "4. Team \n";
 		cout << "5. Weekly salary \n";
 		cout << "6. Rating between a certain range \n";
 		cout << "7. Range of base price \n";
-		cin  >> choice2;
-		switch(choice2)
+		cin  >> choice1;
+		switch(choice1)
 		{
 		    case 1: infile.open("transfer.dat", ios::in | ios::binary);
 			    char pfName[20];
@@ -254,11 +255,11 @@ void search()
 			    while(lNo == 0)
 			    {
 				cout << "wrong input";
-				cin >> lno;
+				cin >> lNo;
 			    }
 			    for(i=0 ; i<lNo ; i++)
 			    {
-				gets(pLeague[i]);
+				cin >> pLeague[40][i];
 			    }
 			    for(i=0 ; i<lNo ; i++)
 			    {
@@ -266,8 +267,7 @@ void search()
 				{
 				    if(strcmpi(pLeague[i], p1.retLeague())==0)
 					p1.showData();
-				}
-				infile.seekg(0);
+				 }
 			    }
 			    infile.close();
 			    break;
@@ -322,7 +322,9 @@ void search()
 			    infile.close();
 			    break;
 		    default: cout << "BUDDY, SORRY WRONG CALL :(:(:(:( \n";
+			    break;
 		}
+		break;
 	default: cout << "BUDDY, SORRY WRONG CALL :(:(:(:( \n";
     }
 }
@@ -332,30 +334,32 @@ void edit()
     cout << "1. Enter new data \n";
     cout << "2. Delete data \n";
     cout << "3. Edit a player record \n";
-    cin >> choice1;
-    switch(choice1)
+    cin >> choice;
+    switch(choice)
     {
-	case 1: infile.open("transfer.dat", ios::in | ios::binary);
-		temp.open("new.dat", ios::out | ios::binary);
-		do{
+	case 1: do{
+		    infile.open("transfer.dat", ios::in | ios::binary);
+		    temp.open("new.dat", ios::out | ios::binary);
 		    p1.getData();
 		    infile.write((char*)&p1, sizeof(p1));
 		    cout << "do u want to enter another record - \n";
 		    cin >> ans;
-		}while(ans == 'Y' || ans == 'y');
+		}while(ans=='y' || ans=='Y');
 		infile.close();
 		temp.close();
 		remove("transfer.dat");
 		rename("new.dat","transfer.dat");
 		break;
-	case 2:infile.open("transfer.dat", ios::in | ios::binary);
+	case 2:
+	    {
+		infile.open("transfer.dat", ios::in | ios::binary);
 	       temp.open("new.dat", ios::out | ios::binary);
 	       int rec = 1;
 	       int delRec;
 	       cout << "Enter record no to be deleted /n";
 	       cin>>delRec;
 	       infile.seekg(0);
-	       while(infile.read((char*)&p1, sizeof(p1))
+	       while(infile.read((char*)&p1, sizeof(p1)))
 	       {
 		   if (rec!=delRec)
 		       temp.write((char*)&p1,sizeof(p1));
@@ -366,19 +370,23 @@ void edit()
 	       remove("transfer.dat");
 	       rename("new.dat","transfer.dat");
 	       break;
-	case 3:infile.open("transfer.dat", ios::in | ios::binary);
+
+	    }
+	case 3:
+	   infile.open("transfer.dat", ios::in | ios::binary);
 	       temp.open("new.dat", ios::out | ios::binary);
 	       int rec=0;
 	       int edtRec;
 	       cout<<"Enter record no to edit /n";
 	       cin>>edtRec;
 	       while(infile.read((char*)&p1, sizeof(p1)))
-	       {
-		   r++;
+
+		       {
+		   rec++;;
 		   if(rec==edtRec)
 		   {
 		       cout<<"Enter new details /n";
-		       p2.getdata();
+		       p2.getData();
 		    }
 		    temp.write((char*)&p2, sizeof(p1));
 	       }
@@ -387,26 +395,27 @@ void edit()
 	       remove("transfer.dat");
 	       rename("new.dat","transfer.dat");
 	       break;
+
 	default: cout << "BUDDY, SORRY WRONG CALL :(:(:(:( \n";
     }
 }
 
-void main()
+int main()
 {
     clrscr();
-    cout << " &&&       &&&&&      &&&  &&&&&&&&&  &&&          &&&&&&    &&&&&&     &&&&&     &&&&&   &&&&&&&&&  \n ";
-    cout << "  &&&     &&& &&&    &&&   &&&        &&&         &&&       &&&  &&&    &&& &&& &&& &&&   &&&        \n ";
-    cout << "   &&&   &&&  &&&   &&&    &&&&&&     &&&        &&&       &&&    &&&   &&&  &&&&&  &&&   &&&&&&     \n ";
-    cout << "  	 &&& &&&    &&& &&&     &&&        &&&         &&&       &&&  &&&    &&&   &&&   &&&   &&&        \n ";
-    cout << "	  &&&&&      &&&&&      &&&&&&&&&  &&&&&&&&     &&&&&&    &&&&&&     &&&    &    &&&   &&&&&&&&&  \n ";
-    cout << endl << endl;
-    cout << "						TO";
-    cout << endl << endl;
-    cout << "    &&&&&&&&&  &&&&&&&    &&&&&&&&&  &&&&    &&&  &&&&&&&&&  &&&&&&&&&  &&&&&&&&&  &&&&&&&    \n";
-    cout << "	    &&&     &&&  &&&   &&&   &&&  &&&&&&  &&&  &&&        &&&        &&&        &&&  &&&   \n";
-    cout << "	    &&&     &&&  &&&   &&&&&&&&&  &&& &&& &&&  &&&&&&&&&  &&&&&&&&&  &&&&&&&&&  &&&  &&&   \n";
-    cout << "	    &&&     &&&&&&&    &&&   &&&  &&&  &&&&&&        &&&  &&&        &&&        &&&&&&&    \n";
-    cout << "	    &&&     &&&  &&&   &&&   &&&  &&&    &&&&  &&&&&&&&&  &&&        &&&&&&&&&  &&&  &&&   \n";
+    cout << " &&       &&  &&&&&&&  &&      &&&&&&  &&&&    &&&&   &&&&  &&&&&&&  \n ";
+    cout << " &&   &   &&  &&       &&     &&&     &&  &&   && && && &&  &&        \n ";
+    cout << " &&  &&&  &&  &&&&&&   &&    &&&     &&    &&  &&  &&&  &&  &&&&&&   \n ";
+    cout << " && && && &&  &&       &&     &&&     &&  &&   &&   &   &&  &&        \n ";
+    cout << " &&&&   &&&&  &&&&&&&  &&&&&&  &&&&&&  &&&&    &&       &&  &&&&&&&  \n ";
+    cout << endl;
+    cout << "						TO \n";
+    cout << endl;
+    cout << " &&&&&&&  &&&&&   &&&&&&&  &&&   &&  &&&&&&&  &&&&&&&  &&&&&&&  &&&&&   \n";
+    cout << "   &&     &&  &&  &&   &&  &&&&  &&  &&       &&       &&       &&  &&   \n";
+    cout << "   &&     &&  &&  &&&&&&&  && && &&  &&&&&&&  &&&&&&&  &&&&&&  &&  &&  \n";
+    cout << "   &&     &&&&    &&   &&  &&  &&&&       &&  &&       &&       &&&&     \n";
+    cout << "   &&     &&  &&  &&   &&  &&   &&&  &&&&&&&  &&       &&&&&&&  &&  &&  \n";
 
     cout << "					          WINDOW \n";
     cout << "			     IT IS THE HOTTEST TIME OF THE FOOTBALL WORLD \n";
@@ -420,22 +429,23 @@ void main()
     switch(choice)
     {
 	case 1:	cout << "Welcome to player database player database create data mode \n";
-		cout << "Enter player details \n";
-		create();
-		break;
+		    cout << "Enter player details \n";
+		    create();
+		    break;
 	case 2: cout << "Welcome to player database search mode \n";
-		cout << "Here you can searching upcoming players for your team";
-		search();
-		break;
-	case 3: cout << "Welcome to player database edut mode \n":
-		edit();
-		break;
+		    cout << "Here you can searching upcoming players for your team";
+		    search();
+		    break;
+	case 3: cout << "Welcome to player database edut mode \n";
+		    edit();
+	    break;
 	default: cout << "Sorry pal, wrong choice :( \n";
     }
-    cout << "do you want use our service once again ?";
+    cout << "do you want use our service once again? - ";
     cin >> ans;
-    while(ans == 'Y' || ans == 'y')
+    while(ans=='y'|| ans=='Y')
     {
+	clrscr();
 	cout << "1. Enter record to our database \n";
 	cout << "2. Search from talent \n";
 	cout << "3. Edit data base \n";
@@ -451,14 +461,15 @@ void main()
 		    cout << "Here you can searching upcoming players for your team";
 		    search();
 		    break;
-	    case 3: cout << "Welcome to player database edut mode \n":
+	    case 3: cout << "Welcome to player database edit mode \n";
 		    edit();
 		    break;
 	    default:cout << "Sorry pal, wrong choice :( \n";
-		 // goto start;
 		    break;
 	}
 	cout << "Sir do u want to continue";
 	cin >> ans;
     }
+    return 0;
 }
+
