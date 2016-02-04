@@ -177,7 +177,7 @@ fstream infile, temp;
 void create()
 {
     char ans = 'y';
-    infile.open("transfer.dat", ios::out | ios::binary);
+    infile.open("transfer.dat", ios::app | ios::binary);
     while(ans == 'y' || ans == 'Y')
     {
 	p1.getData();
@@ -252,13 +252,14 @@ void search()
 			    int lNo, i;
 			    cout << "Enter the no of league you want to search";
 			    cin >> lNo;
-			    while(lNo == 0)
+			    if(lNo == 0)
 			    {
 				cout << "wrong input";
 				cin >> lNo;
 			    }
 			    for(i=0 ; i<lNo ; i++)
 			    {
+				cout << "enter league namec";
 				cin >> pLeague[40][i];
 			    }
 			    for(i=0 ; i<lNo ; i++)
@@ -299,7 +300,7 @@ void search()
 			    int pRate1, pRate2;
 			    cout << "Enter lower limit of player rating \n";
 			    cin >> pRate1;
-				    cout << "Enter upper limit of weekly salary \n";
+			    cout << "Enter upper limit of weekly salary \n";
 			    cin >> pRate2;
 			    while(infile.read((char*)&p1, sizeof(p1)))
 			    {
@@ -339,7 +340,7 @@ void edit()
     {
 	case 1: do{
 		    infile.open("transfer.dat", ios::in | ios::binary);
-		    temp.open("new.dat", ios::out | ios::binary);
+		    temp.open("new.dat", ios::app | ios::binary);
 		    p1.getData();
 		    infile.write((char*)&p1, sizeof(p1));
 		    cout << "do u want to enter another record - \n";
@@ -352,11 +353,11 @@ void edit()
 		break;
 	case 2:
 	    {
-		infile.open("transfer.dat", ios::in | ios::binary);
-	       temp.open("new.dat", ios::out | ios::binary);
+	       infile.open("transfer.dat", ios::in | ios::binary);
+	       temp.open("new.dat", ios::ate | ios::binary);
 	       int rec = 1;
 	       int delRec;
-	       cout << "Enter record no to be deleted /n";
+	       cout << "Enter record no to be deleted \n";
 	       cin>>delRec;
 	       infile.seekg(0);
 	       while(infile.read((char*)&p1, sizeof(p1)))
@@ -373,16 +374,15 @@ void edit()
 
 	    }
 	case 3:
-	   infile.open("transfer.dat", ios::in | ios::binary);
-	       temp.open("new.dat", ios::out | ios::binary);
+	       infile.open("transfer.dat", ios::in | ios::binary);
+	       temp.open("new.dat", ios::ate | ios::binary);
 	       int rec=0;
 	       int edtRec;
 	       cout<<"Enter record no to edit /n";
 	       cin>>edtRec;
 	       while(infile.read((char*)&p1, sizeof(p1)))
-
-		       {
-		   rec++;;
+	       {
+		   rec++;
 		   if(rec==edtRec)
 		   {
 		       cout<<"Enter new details /n";
